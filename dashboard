@@ -1,0 +1,187 @@
+<head>
+    <title>Dashboard</title>
+    <link rel="icon" href="/favicon.svg">
+    <link href="/fonts/mdi.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/main.css" />
+    <style>
+        html.dark {
+            --color-html: #0e0b0b;
+            --color-body: #1a1010;
+            --color-text: #d1d1d1;
+            --color-link: #4fbcff;
+            --color-selected-text: #000;
+            --color-selected-bg: #CF7;
+        }
+    </style>
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.materialboxed');
+            var instances = M.Materialbox.init(elems);
+        });
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems, { closeOnClick: false, constrainWidth: false });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#toc').toc();
+        });
+    </script>
+    <script>
+        window.addEventListener('load', function () {
+            var xhr = null;
+
+            getXmlHttpRequestObject = function () {
+                if (!xhr) {
+                    // Create a new XMLHttpRequest object 
+                    xhr = new XMLHttpRequest();
+                }
+                return xhr;
+            };
+
+            updateLiveData = function () {
+                var now = new Date();
+                // Date string is appended as a query with live data 
+                // for not to use the cached version 
+                var url = 'api/memstatus.fish';
+                xhr = getXmlHttpRequestObject();
+                xhr.onreadystatechange = evenHandler;
+                // asynchronous requests
+                xhr.open("GET", url, true);
+                // Send the request over the network
+                xhr.send(null);
+            };
+
+            updateLiveData();
+
+            function evenHandler() {
+                // Check response is ready or not
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Set current data text
+                    document.getElementById('mem').style.width = xhr.responseText;
+                    document.getElementById('mempost').innerHTML = "CPU Usage: " + xhr.responseText;
+                    // Update the live data every 1 sec
+                    setTimeout(updateLiveData(), 1000);
+                }
+            }
+        });
+    </script>
+    <script>
+        window.addEventListener('load', function () {
+            var xhr2 = null;
+
+            getXmlHttpRequestObject2 = function () {
+                if (!xhr2) {
+                    // Create a new XMLHttpRequest object 
+                    xhr2 = new XMLHttpRequest();
+                }
+                return xhr2;
+            };
+
+            updateLiveData2 = function () {
+                var now = new Date();
+                // Date string is appended as a query with live data 
+                // for not to use the cached version 
+                var url2 = 'api/cpustatus.fish';
+                xhr = getXmlHttpRequestObject2();
+                xhr2.onreadystatechange = evenHandler2;
+                // asynchronous requests
+                xhr2.open("GET", url2, true);
+                // Send the request over the network
+                xhr2.send(null);
+            };
+
+            updateLiveData2();
+
+            function evenHandler2() {
+                // Check response is ready or not
+                if (xhr2.readyState == 4 && xhr2.status == 200) {
+                    // Set current data text
+                    document.getElementById('cpu').style.width = xhr2.responseText;
+                    document.getElementById('cpupost').innerHTML = "CPU Usage: " + xhr2.responseText;
+                    // Update the live data every 1 sec
+                    setTimeout(updateLiveData2(), 1000);
+                }
+            }
+        });
+    </script>
+</head>
+<nav class="blue">
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img src="/img/navbg.webp">
+                </div>
+                <a href="#name">
+                    <b>System Dashboard</b>
+                </a>
+                <a href="#description">
+                    <span class="white-text name">A simple dashboard to quickly query your system status</span>
+                </a>
+            </div>
+        </li>
+        <li><a class="waves-effect waves-grey" onclick="ClassSwitch('html' , 'grey' , 'ColorMode');"><i
+                    class="material-icons">brightness_medium</i>夜間模式|night mode</a></li>
+        <li><a href="/" class="waves-effect waves-grey">主頁|Front-page</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large black-text"><i
+            class="material-icons">menu</i></a>
+    <a internal href="/" class="brand-logo flow-text black-text">System Dashboard</a>
+</nav>
+
+<body>
+    <div class="container s12 m12 l12">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Memory</span>
+                        <div class="progress">
+                            <div class="determinate" id="mem" style="width: 0%"></div>
+                        </div>
+                        <div id="mempost"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">CPU</span>
+                        <div class="progress">
+                            <div class="determinate" id="cpu" style="width: 0%"></div>
+                        </div>
+                        <div id="cpupost"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6">
+              <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Quickshot</span>
+                </div>
+                <div class="card-action">
+                  <a href="/api/shutdown">Shutdown</a>
+                  <a href="/api/reboot">Reboot</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</body>
