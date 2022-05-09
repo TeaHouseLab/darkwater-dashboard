@@ -5,4 +5,4 @@ Put api, css, fonts, img, js and dashboard into your darkwater web root, then vi
 
 http://youserver/dashboard
 
-![Preview](https://user-images.githubusercontent.com/38799701/167340007-ba82906e-7d3c-466b-b3d2-204dff565372.png)
+![Preview](https://user-images.githubusercontent.com/38799701/167423333-e143b558-b094-409f-9585-61984fbee997.png)
