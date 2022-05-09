@@ -106,7 +106,7 @@
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     document.getElementById('mem').style.width = mem.responseText;
-                    document.getElementById('mempost').innerHTML = "CPU Usage: " + mem.responseText;
+                    document.getElementById('mempost').innerHTML = "Memory Usage: " + mem.responseText;
                     setTimeout(grab_mdata, 1000);
                 } else {
                     setTimeout(grab_mdata, 1000);
