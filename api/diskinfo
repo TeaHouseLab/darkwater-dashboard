@@ -1,0 +1,7 @@
+#!/usr/bin/fish
+echo "Disk Usage <br>"
+for disk in (df -h | awk -F' ' '{ print $1 }' | sed '/tmpfs/d;/Filesystem/d;/run/d;/^dev/d')
+    printf "$disk "
+    df -h $disk | egrep -o '[0-9]+%'
+    printf "<br>"
+end
