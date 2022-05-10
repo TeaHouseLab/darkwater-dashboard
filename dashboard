@@ -76,16 +76,16 @@
         <div class="col s12 m6 left">
             <div class="card blue-grey darken-2-grey darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Misc</span>
-                    <div id="diskpost"></div>
+                    <span class="card-title">Network</span>
+                    <div id="netpost"></div>
                 </div>
             </div>
         </div>
         <div class="col s12 m6 right">
             <div class="card blue-grey darken-2-grey darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Network</span>
-                    <div id="netpost"></div>
+                    <span class="card-title">Misc</span>
+                    <div id="diskpost"></div>
                 </div>
             </div>
         </div>
