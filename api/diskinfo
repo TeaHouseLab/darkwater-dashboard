@@ -1,7 +1,24 @@
 #!/usr/bin/fish
-echo "Disk Usage <br>"
+echo "▶ Disk Usage <br>"
+echo "<table>
+<thead class="white-text">
+<tr>
+<th>Partition</th>
+<th>Used</th>
+<th>%</th>
+</thead>
+<tbody class="white-text">"
 for disk in (df -h | awk -F' ' '{ print $1 }' | sed '/tmpfs/d;/Filesystem/d;/run/d;/^dev/d')
-    printf "$disk "
-    df -h $disk | egrep -o '[0-9]+%'
-    printf "<br>"
+    echo "<tr>
+<td>$disk</td>"
+    set data (df -h $disk)
+    echo "<td>" (echo $data | awk -F' ' '{ print $10 }' | sed -z 's/Used\n//g') "</td>"
+    echo "<td>" (echo $data | egrep -o '[0-9]+%') "</td>
+</tr>"
 end
+echo "
+</tbody>
+</table>
+"
+echo "▶ Uptime <br>"
+echo (uptime) "<br>"

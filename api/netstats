@@ -1,5 +1,5 @@
 #!/usr/bin/fish
-echo "Network Usage <br>"
+echo "▶ Network Usage <br>"
 function size
     set size1239_calcamount $argv[1]
     if [ "$size1239_calcamount" -ge 0 ]
@@ -36,7 +36,7 @@ set interface (ls /sys/class/net/ | sed 's/@//g')
 for i in $interface
     set received (size (math "$(cat /sys/class/net/$i/statistics/rx_bytes)*8"))
     set sent (size (math "$(cat /sys/class/net/$i/statistics/tx_bytes)*8"))
-    echo ">Interface: $i< <br>"
+    echo "Interface: $i <br>"
     echo "Received: $received <br>"
     echo "Sent: $sent <br>"
     echo "--------------------- <br>"
