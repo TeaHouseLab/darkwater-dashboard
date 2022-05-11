@@ -1,5 +1,4 @@
 #!/usr/bin/fish
-echo "▶ Network Usage <br>"
 function size
     set size1239_calcamount $argv[1]
     if [ "$size1239_calcamount" -ge 0 ]

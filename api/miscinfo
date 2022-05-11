@@ -1,13 +1,13 @@
 #!/usr/bin/fish
-echo "▶ Disk Usage <br>"
+echo "Disk Usage <br>"
 echo "<table>
-<thead class="white-text">
+<thead>
 <tr>
 <th>Partition</th>
 <th>Used</th>
 <th>%</th>
 </thead>
-<tbody class="white-text">"
+<tbody>"
 for disk in (df -h | awk -F' ' '{ print $1 }' | sed '/tmpfs/d;/Filesystem/d;/run/d;/^dev/d')
     echo "<tr>
 <td>$disk</td>"
@@ -20,5 +20,5 @@ echo "
 </tbody>
 </table>
 "
-echo "▶ Uptime <br>"
+echo "Uptime <br>"
 echo (uptime) "<br>"
