@@ -1,133 +1,145 @@
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/beer.min.css" rel="stylesheet">
     <script src="js/beer.min.js" type="text/javascript"></script>
-    <script src="js/material-dynamic-colors.min.js"
-        type="text/javascript"></script>
+    <script src="js/material-dynamic-colors.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            opacity: 0;
+        }
+    </style>
+    <script>
+        window.onload = function () { setTimeout(function () { document.body.style.opacity = "100"; }, 500); };
+    </script>
 </head>
-<div class="menu bottom">
-    <a _blank href="dashboard">
-        <i>home</i>
-        <div>Dashboard</div>
-    </a>
-    <a _blank href="power">
-        <i>settings</i>
-        <div>Control</div>
-    </a>
-    <div class="modal medium bottom no-scroll"></div>
-    <div class="modal bottom"></div>
-</div>
 
-<div class="row">
-    <div class=" col s1">
-        <p></p>
+<body>
+    <div class="menu bottom">
+        <a _blank href="dashboard">
+            <i>home</i>
+            <div>Dashboard</div>
+        </a>
+        <a _blank href="power">
+            <i>settings</i>
+            <div>Control</div>
+        </a>
+        <div class="modal medium bottom no-scroll"></div>
+        <div class="modal bottom"></div>
     </div>
-    <div class="col s5">
-        <article class="small round">
-            <div id="mem" class="progress bottom"></div>
-            <i>memory</i>
-            <h5>Memory</h5>
-            <h6 id="mempost">0%</h6>
-        </article>
+
+    <div class="row">
+        <div class=" col s1">
+            <p></p>
+        </div>
+        <div class="col s5">
+            <article class="small round">
+                <div id="mem" class="progress bottom"></div>
+                <i>memory</i>
+                <h5>Memory</h5>
+                <h6 id="mempost">0%</h6>
+            </article>
+        </div>
+        <div class="col s5">
+            <article class="small round">
+                <div id="cpu" class="progress bottom"></div>
+                <i>ac_unit</i>
+                <h5>CPU</h5>
+                <h6 id="cpupost">0%</h6>
+            </article>
+        </div>
     </div>
-    <div class="col s5">
-        <article class="small round">
-            <div id="cpu" class="progress bottom"></div>
-            <i>ac_unit</i>
-            <h5>CPU</h5>
-            <h6 id="cpupost">0%</h6>
-        </article>
+    <div class="row">
+        <div class=" col s1">
+            <p></p>
+        </div>
+        <div class="col s10">
+            <details class="card round">
+                <summary>
+                    <i>network_wifi</i>Network
+                </summary>
+                <div id="netstat"></div>
+            </details>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class=" col s1">
-        <p></p>
+    <div class="row">
+        <div class="col s1">
+            <p></p>
+        </div>
+        <div class="col s10">
+            <details class="card round">
+                <summary>
+                    <i>storage</i>misc
+                </summary>
+                <div id="miscpost"></div>
+            </details>
+        </div>
     </div>
-    <div class="col s10">
-        <details class="card round">
-            <summary>
-                <i>network_wifi</i>Network
-            </summary>
-            <div id="netstat"></div>
-        </details>
-    </div>
-</div>
-<div class="row">
-    <div class="col s1">
-        <p></p>
-    </div>
-    <div class="col s10">
-        <details class="card round">
-            <summary>
-                <i>storage</i>misc
-            </summary>
-            <div id="miscpost"></div>
-        </details>
-    </div>
-</div>
-<script>
-    var mem = new XMLHttpRequest();
-    var cpu = new XMLHttpRequest();
-    var misc = new XMLHttpRequest();
-    var net = new XMLHttpRequest();
-    ui()
-    grab_mdata = function () {
-        mem.open("GET", 'api/memstatus', true);
-        mem.send();
-    }
-    grab_cdata = function () {
-        cpu.open("GET", 'api/cpustatus', true);
-        cpu.send();
-    }
-    grab_modata = function () {
-        misc.open("GET", 'api/miscinfo', true);
-        misc.send();
-    }
-    grab_ndata = function () {
-        net.open("GET", 'api/netstats', true);
-        net.send();
-    }
-    grab_mdata();
-    grab_cdata();
-    grab_modata();
-    grab_ndata();
-    mem.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                ui("#mem", mem.responseText);
-                document.getElementById('mempost').innerHTML = "Memory Usage: <br>" + mem.responseText + "%";
-                setTimeout(grab_mdata, 1000);
-            } else {
-                setTimeout(grab_mdata, 1000);
+    <script>
+        var mem = new XMLHttpRequest();
+        var cpu = new XMLHttpRequest();
+        var misc = new XMLHttpRequest();
+        var net = new XMLHttpRequest();
+        ui()
+        grab_mdata = function () {
+            mem.open("GET", 'api/memstatus', true);
+            mem.send();
+        }
+        grab_cdata = function () {
+            cpu.open("GET", 'api/cpustatus', true);
+            cpu.send();
+        }
+        grab_modata = function () {
+            misc.open("GET", 'api/miscinfo', true);
+            misc.send();
+        }
+        grab_ndata = function () {
+            net.open("GET", 'api/netstats', true);
+            net.send();
+        }
+        grab_mdata();
+        grab_cdata();
+        grab_modata();
+        grab_ndata();
+        mem.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    ui("#mem", mem.responseText);
+                    document.getElementById('mempost').innerHTML = "Memory Usage: <br>" + mem.responseText + "%";
+                    setTimeout(grab_mdata, 1000);
+                } else {
+                    setTimeout(grab_mdata, 1000);
+                }
             }
-        }
-    };
-    cpu.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                ui("#cpu", cpu.responseText);
-                document.getElementById('cpupost').innerHTML = "CPU Usage: <br>" + cpu.responseText + "%";
-                setTimeout(grab_cdata, 1000);
-            } else {
-                setTimeout(grab_cdata, 1000);
+        };
+        cpu.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    ui("#cpu", cpu.responseText);
+                    document.getElementById('cpupost').innerHTML = "CPU Usage: <br>" + cpu.responseText + "%";
+                    setTimeout(grab_cdata, 1000);
+                } else {
+                    setTimeout(grab_cdata, 1000);
+                }
             }
-        }
-    };
-    misc.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('miscpost').innerHTML = misc.responseText;
-        }
-    };
-    net.onreadystatechange = function () {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                document.getElementById('netstat').innerHTML = net.responseText;
-                setTimeout(grab_ndata, 1000);
-            } else {
-                setTimeout(grab_ndata, 1000);
+        };
+        misc.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('miscpost').innerHTML = misc.responseText;
             }
-        }
-    };
-</script>
+        };
+        net.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    document.getElementById('netstat').innerHTML = net.responseText;
+                    setTimeout(grab_ndata, 1000);
+                } else {
+                    setTimeout(grab_ndata, 1000);
+                }
+            }
+        };
+    </script>
+</body>
+
 </html>
