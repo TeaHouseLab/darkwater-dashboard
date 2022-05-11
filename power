@@ -4,8 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/beer.min.css" rel="stylesheet">
     <script src="js/beer.min.js" type="text/javascript"></script>
-    <script src="js/material-dynamic-colors.min.js"
-        type="text/javascript"></script>
+    <script src="js/material-dynamic-colors.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            opacity: 0;
+        }
+    </style>
+    <script>
+        window.onload = function () { setTimeout(function () { document.body.style.opacity = "100"; }, 500); };
+    </script>
 </head>
 <div class="menu bottom">
     <a _blank href="dashboard">
