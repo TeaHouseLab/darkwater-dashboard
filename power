@@ -5,73 +5,108 @@
     <link href="css/beer.min.css" rel="stylesheet">
     <script src="js/beer.min.js" type="text/javascript"></script>
     <script src="js/material-dynamic-colors.min.js" type="text/javascript"></script>
+    <div class="toast red white-text" id="toast">
+        <i>error</i>
+        <span>Couldn't connect to the backend, try again later and contact your system admin</span>
+    </div>
 </head>
-<div class="menu bottom">
-    <a _blank href="dashboard">
-        <i>home</i>
-        <div>Dashboard</div>
-    </a>
-    <a _blank href="power">
-        <i>settings</i>
-        <div>Control</div>
-    </a>
-    <div class="modal medium bottom no-scroll"></div>
-    <div class="modal bottom"></div>
-</div>
-<div class="row">
-    <div class=" col s1">
-        <p></p>
+
+<body>
+    <script>
+        var arg
+        function power(arg) {
+            var power = new XMLHttpRequest();
+            power.open('GET', 'api/power/' + arg);
+            power.send();
+            if (power.status !== 200) {
+                ui("#toast", 5000);
+            }
+        }
+    </script>
+    <div class="menu bottom">
+        <a _blank href="dashboard">
+            <i>home</i>
+            <div>Dashboard</div>
+        </a>
+        <a _blank href="power">
+            <i>settings</i>
+            <div>Control</div>
+        </a>
+        <div class="modal medium bottom no-scroll"></div>
+        <div class="modal bottom"></div>
     </div>
-    <div class="col s10">
-        <details class="card round">
-            <summary>
-                <i>settings_power</i>Power
-            </summary>
-            <br>
-            <button class="extend square round extra">
-                <i>refresh</i>
-                <span>Restart</span>
-            </button>
-            <button class="extend square round extra">
-                <i>power_settings_new</i>
-                <span>Poweroff</span>
-            </button>
-            <button class="extend square round extra">
-                <i>mode_standby</i>
-                <span>Boot</span>
-            </button>
-        </details>
-    </div>
-</div>
-<div class="row">
-    <div class="col s1">
-        <p></p>
-    </div>
-    <div class="col s10">
-        <details class="card round">
-            <summary>
-                <i>report_problem</i>Report Outage
-            </summary>
-        </details>
-    </div>
-</div>
-<div class="row">
-    <div class="col s1">
-        <p></p>
-    </div>
-    <div class="col s10">
-        <article class="round">
-            <div class="row no-wrap">
-                <div class="col">
-                    <i>cloud</i>
-                    <h5 class="no-margin">TrashWare solution LLC</h5>
-                    <h6>Trash Cloud Computing.
-                        Affordable prices.</h6>
-                    You're at <div id="node"></div> | <div id="loc"></div>
+    <div class="row">
+        <div class="col s1">
+            <p></p>
+        </div>
+        <div class="col s10">
+            <article class="round">
+                <div class="row no-wrap">
+                    <div class="col">
+                        <i>cloud</i>
+                        <h5 class="no-margin">TrashWare solution LLC</h5>
+                        <h6>Trash Cloud Computing.
+                            Affordable prices.</h6>
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col s1">
+            <p></p>
+        </div>
+        <div class="col s10">
+            <details class="card round">
+                <summary>
+                    <i>report_problem</i>Report Outage
+                </summary>
+            </details>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col s1">
+            <p></p>
+        </div>
+        <div class="col s5">
+            <details class="card round">
+                <summary>
+                    <i>settings_power</i>Power
+                </summary>
+                <br>
+                <button onclick="power('restart');" class="extend square round extra">
+                    <i>refresh</i>
+                    <span>Restart</span>
+                </button><br>
+                <button onclick="power('poweroff');" class="extend square round extra">
+                    <i>mode_standby</i>
+                    <span>Poweroff</span>
+                </button><br>
+                <button onclick="power('bootup');" class="extend square round extra">
+                    <i>power_settings_new</i>
+                    <span>Bootup</span>
+                </button>
+            </details>
+        </div>
+        <div class=" col s5">
+            <details class="card round">
+                <summary>
+                    <i>info</i>Service info
+                </summary>
+                <p>
+                    <button class="round green">Active</button><br>
+                <article class="border round">
+                    <div class="row no-wrap">
+                        Location: US-west<br>
+                        Node: 01<br>
+                        Price: 0$/m<br>
+                        Next due date: 1051/1/1
+                    </div>
+                </article>
+                </p>
+            </details>
+        </div>
+    </div>
+</body>
 
 </html>
